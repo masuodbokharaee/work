@@ -21,22 +21,22 @@ class CustomerController {
 
     def save() {
         def customerInstance = new Customer(params)
-        if (!customerInstance.save(flush: true))
-        {
+
+        if (!customerInstance.save(flush: true)) {
             render(view: "create", model: [customerInstance: customerInstance])
             return
         }
-        if  (work.Product.list().each{product -> (params["selected_${product.id}"])
+        work.Product.list().each {product ->
+            if (params["selected_${product.id}"]) {
 
-            render(view: "create", collection: ["selected_${product.id}"])
-        }  )
-
-
-
-
+                def wneed = new Wneed(productname: product, name: customerInstance, wuneed: params["desc_${product.id}"])
+                wneed.save()
+            }
+        }
         flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customerInstance.id])
         redirect(action: "show", id: customerInstance.id)
     }
+
 
     def show(Long id) {
         def customerInstance = Customer.get(id)
@@ -45,9 +45,8 @@ class CustomerController {
             redirect(action: "list")
             return
         }
-
-        [customerInstance: customerInstance]
-
+        def needs = Wneed.findAllByName(customerInstance)
+        [customerInstance: customerInstance, needs: needs]
     }
 
     def edit(Long id) {

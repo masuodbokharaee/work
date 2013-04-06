@@ -89,15 +89,12 @@
 				</g:if>
 			
 				<g:if test="${work.Product.list()}">
-				<li class="fieldcontain">
-					<span id="product-label" class="property-label"><g:message code="customer.product.label" default="محصول مورد علاقه" /></span>
-					
-						<g:each in="${customerInstance.product}" var="s">
-						<span class="property-value" aria-labelledby="product-label"><g:link controller="product" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
-						</g:each>
-
-
-				</li>
+                    <li class="fieldcontain">
+                        <span id="product-label" class="property-label"><g:message code="customer.product.label" default="محصول مورد علاقه" /></span>
+                        <g:each in="${needs}" var="s">
+                            <span class="property-value" aria-labelledby="product-label"><g:link controller="product" action="show" id="${s.productnameId}">${s?.productname?.encodeAsHTML()}</g:link></span>
+                        </g:each>
+                    </li>
 				</g:if>
 
 				<g:if test="${customerInstance?.whatuneed}">

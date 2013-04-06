@@ -64,13 +64,10 @@
 
 	</label>
 
-   <g:each in="${work.Product.list()}" var="s">        <p> ${s?.encodeAsHTML()}</p>
+    <g:each in="${work.Product.list()}" var="s">        <p> ${s?.encodeAsHTML()}</p>
         <img src="${createLink(controller:'product', action:'pic', id: s.id)}" width="50px" height="50px" />
-
-                <g:checkBox name="selected_${s.id}" controller="product" action="show"  > </g:checkBox>
-       <g:textArea name="selected_${s.id}" controller='wneed' action='show' cols="20" rows="5" maxlength="1000" value="${wneedInstance?.wneed}"/>
-
-
+        <g:checkBox name="selected_${s.id}"/>
+        <g:textArea name="desc_${s.id}"  cols="20" rows="5" maxlength="1000" />
     </g:each>
 
 </div>
